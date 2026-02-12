@@ -164,5 +164,7 @@ dotnet run
 
 ## 👨‍💻 Author
 
-Developed by Yousef Ahmed Fawzy
-Backend Developer | ASP.NET Core Enthusiast  
+**Yousef Ahmed Fawzy**
+
+- Backend Developer
+- ASP.NET Core Enthusiast
