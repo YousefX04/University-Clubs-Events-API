@@ -164,4 +164,7 @@ dotnet run
 
 ## 👨‍💻 Author
 
-Developed as a University Graduation Project using ASP.NET Core and Clean Architecture principles.
+## 👨‍💻 Author
+
+Developed by [Yousef Ahmed Fawzy]  
+Backend Developer | ASP.NET Core Enthusiast  
