@@ -97,12 +97,123 @@ Features:
 
 ---
 
-## 🗄️ Database
+## 🗄️ Database Design
 
-- SQL Server
-- Entity Framework Core
-- Code-First Approach
-- Migrations for database management
+The system uses SQL Server with Entity Framework Core (Code-First approach).  
+It is designed around a structured approval workflow and relationship-based data modeling.
+
+### 👤 Identity & User Management
+
+- **AppUser** → Inherits from ASP.NET Core IdentityUser for authentication.
+- **User** → Application-specific user profile linked to Identity via `AppUserId`.
+
+This separation allows:
+- Secure authentication using Identity
+- Clean domain modeling for business logic
+
+---
+
+## 🏫 Core Entities
+
+### Club
+Represents a university club.
+
+- Id
+- ClubName
+- Description
+- CreatedAt
+- ClubLeaderID (FK → User)
+- Status (Pending / Approved / Rejected)
+
+Relationships:
+- One Club → Many Events
+- One Club → Many Members (ClubMember)
+
+---
+
+### Event
+Represents an event created under a club.
+
+- Id
+- EventName
+- Description
+- CreatedAt
+- StartAt
+- EndAt
+- Status (Pending / Approved / Rejected)
+- ClubID (FK → Club)
+
+Relationships:
+- One Event → Many Event Members
+
+---
+
+## 👥 Membership Entities (Many-to-Many with Status)
+
+### ClubMember
+Represents a student joining a club.
+
+- ClubID (FK)
+- UserID (FK)
+- Status (Pending / Approved / Rejected)
+
+This allows controlled membership approval by the Club Leader.
+
+---
+
+### EventMember
+Represents a student joining an event.
+
+- EventID (FK)
+- UserID (FK)
+- Status (Pending / Approved / Rejected)
+
+This enables event participation approval.
+
+---
+
+## 🔄 Update Tracking Entities
+
+To maintain approval control over updates, the system uses dedicated update tables:
+
+### ClubUpdate
+Stores pending modifications before admin approval.
+
+- OldName / NewName
+- OldDescription / NewDescription
+
+---
+
+### EventUpdate
+Stores pending event modifications before admin approval.
+
+- OldName / NewName
+- OldStart / NewStart
+- OldEnd / NewEnd
+- OldDescription / NewDescription
+
+This design ensures:
+- No direct modification of approved data
+- Administrative control over changes
+- Clear audit trail of modifications
+
+---
+
+## 🔄 Status-Based Workflow
+
+Multiple entities use a **Status field** to control their lifecycle:
+
+- Pending
+- Approved
+- Rejected
+
+This applies to:
+- Clubs
+- Events
+- ClubMember
+- EventMember
+
+The status-driven workflow enforces business rules and prevents unauthorized data exposure.
 
 ---
 
