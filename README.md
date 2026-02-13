@@ -245,7 +245,7 @@ Update your `appsettings.json`:
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SERVER;Database=ClubsEventsDb;Trusted_Connection=True;"
+  "MyCon": "Server=YOUR_SERVER;Database=ClubsEventsDb;Trusted_Connection=True;"
 }
 ```
 
